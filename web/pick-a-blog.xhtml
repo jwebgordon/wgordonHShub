@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"  xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html">
+    <head>
+        <title>Pick a blog</title>
+        <link type="text/css" rel="stylesheet" href="hubstyle.css" />
+    </head>
+    <body>
+        #{ModelBean.getTheBlogs()}
+        <div class="hs-block-message success" style="display: #{ModelBean.blogPostSuccessMessage}; width:400px;" >
+                <p>
+                    Blog post created successfully, check it out in your drafts!
+                </p>
+            <div class="action-alerts" >
+                <a class="hs-button mini secondary" href="#{ModelBean.linkToBlog}" target="_blank">Check it out!</a>
+            </div>
+            </div>
+            <div class="hs-block-message error" style="display: #{ModelBean.blogPostFailureMessage}; width:400px;" >
+                <p>
+                    Could not create blog post. Please make sure the Author Email is a user in your Portal. 
+                </p>
+            </div>
+        <h:form class="hs-form">
+            <table class="hs-table" style="width:400px;">
+                <tr>
+                    <td colspan="2">
+                    <h:selectOneRadio value="#{ModelBean.selectedBlogId}" >
+                        <f:selectItems value="#{ModelBean.blogMap}" />
+                    </h:selectOneRadio>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label class="hs-label" >Blog Author Email</label>
+                    </td>
+                    <td>
+                        <h:inputText value="#{ModelBean.blogAuthorEmail}" class="hs-input" />                       
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label class="hs-label" >Post Title</label>
+                    </td>
+                    <td>
+                        <h:inputText value="#{ModelBean.newBlogPostTitle}" class="hs-input" />
+                    </td>
+                </tr>
+            </table>
+            <h:commandButton value="Start A Blog!" class="hs-button primary" action="#{ModelBean.postNewBlog()}" />
+        </h:form>
+    </body>
+</html>

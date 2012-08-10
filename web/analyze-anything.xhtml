@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html">
+    <head>
+        <title>Analyze Any Block of Text</title>
+        <link type="text/css" rel="stylesheet" href="hubstyle.css" />
+        <script type="text/javascript">
+            function load(){
+                var s = "#{ModelBean.textBlock}";
+                s = s.replace(/\s+/g, ' ');
+                window.open("mailto:?body=" + escape(s));
+            }
+        </script>
+        
+        <link type="text/css" rel="stylesheet" href="fancybox/jquery.fancybox.css" />
+        <script src="http://code.jquery.com/jquery-latest.js"></script>
+        <script type="text/javascript" src="fancybox/jquery.fancybox.js" />
+        <script type="text/javascript" src="fancybox/jquery.fancybox.pack.js" />
+
+        <link rel="stylesheet" href="fancybox/helpers/jquery.fancybox-buttons.css?v=1.0.2" type="text/css" media="screen" />
+        <script type="text/javascript" src="fancybox/helpers/jquery.fancybox-buttons.js?v=1.0.2"></script>
+        <script type="text/javascript" src="fancybox/helpers/jquery.fancybox-media.js?v=1.0.0"></script>
+
+        <link rel="stylesheet" href="fancybox/helpers/jquery.fancybox-thumbs.css?v=2.0.6" type="text/css" media="screen" />
+        <script type="text/javascript" src="fancybox/helpers/jquery.fancybox-thumbs.js?v=2.0.6"></script>
+
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $("a.fancybox-iframe").fancybox({
+                    'width':650,
+                    'height':500,
+                    'type':'iframe',
+                    'autoscale':'false'
+                });
+            });
+        </script>
+        <style type="text/css">
+            .fancybox-inner{
+                width: 500px!important;
+                height: 500px!important;
+            }
+        </style>
+    </head>
+    <body>
+        <header class="hs-main">
+        <ul class="hs-help-nav">
+            <li>
+                <a href="twitpage.xhtml" class="hs-help-button first tutorial hs-help-tutorial hs-tooltip" >Tweets</a>
+            </li>
+            <li>
+                <a href="blogcomms.xhtml" class="hs-help-button middle tour hs-help-tour hs-tooltip" >Blog Comments</a>
+            </li>
+            <li>
+                <a href="analyze-anything.xhtml" class="hs-help-button last tour hs-help-tour hs-tooltip" >Analyze Anything</a>
+            </li>
+        </ul>
+            <h1 style="display:block;" >Analyze any text! <small>And use it for Blogs, emails, anything!</small></h1>
+        </header>
+        <h:form class="hs-form">
+            <table class="hs-table" style="width: 700px;" >
+                <tbody>
+                <tr>
+                    <td style="width: 60%;">
+                        <h:inputTextarea class="hs-input textarea" style="width: 100%; height: 400px;" value="#{ModelBean.textBlock}"/>
+
+                    </td>
+                    <td>
+                        <table>
+                            <tr>
+                                <td>
+                                    <label class="hs-label" >Tone</label>
+                                </td>
+                                <td>
+                                    <div class="progress #{ModelBean.progressClass}" style="width: 100px" >
+                                        <div class="bar" style="width: #{ModelBean.polarityVal}%;" ></div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label class="hs-label" >Offering Guidance?</label>
+                                </td>
+                                <td>
+                                    <div class="progress progress-offeringGuidance" style="width: 100px" >
+                                        <div class="bar" style="width: #{ModelBean.offeringGuidanceVal}%;" ></div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label class="hs-label" >Requesting Guidance?</label>
+                                </td>
+                                <td>
+                                    <div class="progress progress-requestingGuidance" style="width:100px" >
+                                        <div class="bar" style="width: #{ModelBean.requestingGuidanceVal}%;" ></div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label class="hs-label" >Flamboyance</label>
+                                </td>
+                                <td>
+                                    <div class="progress progress-flamboyance" style="width: 100px" >
+                                        <div class="bar" style="width: #{ModelBean.flamboyanceVal}%;" ></div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label class="hs-label" >Slang</label>
+                                </td>
+                                <td>
+                                    <div class="progress progress-slang" style="width: 100px" >
+                                        <div class="bar" style="width: #{ModelBean.slangVal}%;" ></div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label class="hs-label" >Decisiveness</label>
+                                </td>
+                                <td>
+                                    <div class="progress progress-slang" style="width: 100px" >
+                                        <div class="bar" style="width: #{ModelBean.decisivenessVal}%;" ></div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                    <h:commandButton class="hs-button orange" action="#{ModelBean.analyzeTextBlock()}" value="Analyze!" />
+                    
+                     </td>
+                </tr>
+                </tbody>
+            </table>
+            <h:outputLink value="mailto:" disabled="#{ModelBean.emailButtonDisabled}" class="hs-button orange" target="_blank" >
+                <f:param name="body" value="#{ModelBean.mailtoEnding}" />
+                <h:outputText value="Email it!" />
+            </h:outputLink>
+            <h:outputLink value="pick-a-blog.xhtml" style="width:200px;" class="hs-button orange fancybox-iframe" data-fancybox-type="iframe" disabled="#{ModelBean.emailButtonDisabled}" >
+                <h:outputText value="Blog it!" />
+            </h:outputLink>
+        </h:form>
+    </body>
+</html>
