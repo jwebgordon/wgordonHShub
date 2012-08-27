@@ -1513,6 +1513,7 @@ public class ModelBean {
             else if(conn.getResponseCode()>=300){
                 blogPostFailureMessage = "block";
                 blogPostSuccessMessage = "none";
+                //test
             }
        }
        catch(Exception e){
