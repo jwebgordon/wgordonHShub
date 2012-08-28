@@ -17,6 +17,7 @@ public class Tweet {
     private String progressClass;
     private double sliderVal;
     private double requestingGuidanceVal;
+    private boolean isPositive;
     
     public Tweet(String s){
         this.msg = s;
@@ -29,6 +30,16 @@ public class Tweet {
         cssClass="";
     }
 
+    public boolean isIsPositive() {
+        return isPositive;
+    }
+
+    public void setIsPositive(boolean isPositive) {
+        this.isPositive = isPositive;
+    }
+
+    
+    
     public double getRequestingGuidanceVal() {
         return requestingGuidanceVal;
     }

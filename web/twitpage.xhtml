@@ -57,22 +57,33 @@ and open the template in the editor.
                             <h:outputText value="#{tweet.msg}" />
                         </h:column>
                         <h:column class="normColumn">
-                            <label class="hs-label" style="display:block;" >Tone</label>
+                            <label class="hs-label" style="display:block; text-align: left;" >Tone</label>
                             <div class="progress #{tweet.progressClass}" style="width: 80px; display: block;" >
                                 <div class="bar" style="width: #{tweet.sliderVal}%;" ></div>
                             </div>
-                            <label class="hs-label" style="display:block;" >Req. Guidance</label>
-                            <div class="progress progress-requestingGuidance" style="width=80px; display:block;" >
+                            <label class="hs-label" style="display:block; text-align: left;" >Req. Guidance</label>
+                            <div class="progress progress-requestingGuidance" style="width:80px; display:block;" >
                                 <div class="bar" style="width: #{tweet.requestingGuidanceVal}%;" ></div>
                             </div>
                         </h:column>
                     </h:dataTable>
                 </h:column>
             </h:dataTable>
-            <h:inputText value="#{ModelBean.filterKey}" class="hs-input" style="float:left;" />
-            <label class="hs-label" >Hide leads w/o tweets?</label>
-            <h:selectBooleanCheckbox value="#{ModelBean.hideEmptyLeads}" />
-            <h:commandButton value="Filter" action="#{ModelBean.filterTweets()}" class="hs-button primary" style="display:block; position:absolute;" />    
+            
+            <h5 style="margin-top:5px;">Filter your tweets</h5>
+            <label style="margin-right: 5px;width: 70px;margin-top: 2px;" >Filter Key</label>
+            <h:inputText value="#{ModelBean.filterKey}" class="hs-input" style="float:left; margin-top: 5px;" />
+            <label class="hs-label" style="width: 160px; margin-top: 4px; " >Hide leads w/o tweets?</label>
+            <h:selectBooleanCheckbox value="#{ModelBean.hideEmptyLeads}" style="margin-left:4px; margin-top: 11px;" />
+            <h:selectOneMenu class="hs-input" value="#{ModelBean.filterSecondaryValue}" style="" >
+                <f:selectItem itemValue="0" itemLabel="No Secondary Filter" />
+                <f:selectItem itemValue="1" itemLabel="Tweets requesting guidance" />
+                <f:selectItem itemValue="2" itemLabel="Positive tweets" />
+                <f:selectItem itemValue="3" itemLabel="Negative tweets" />
+                
+            </h:selectOneMenu>
+            <h:commandButton value="Filter" action="#{ModelBean.filterTweets()}" class="hs-button primary" style="display:block; position:absolute; margin-top: 9px!important" />    
+            
         </h:form>
         
     </body>

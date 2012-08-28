@@ -164,6 +164,10 @@ border: 1px solid #CCC;
 -khtml-border-radius: 3px;
 border-radius: 3px;
 }
+select.hs-input{
+    height: 28px!important;
+    
+}
 input[type="password"], input[type="search"], isindex {
 -webkit-appearance: textfield;
 padding: 1px;

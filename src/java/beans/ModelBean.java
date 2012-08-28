@@ -75,6 +75,7 @@ public class ModelBean {
     private String linkToBlog;
     private ArrayList<Lead> leadsToDisplay;
     private boolean hideEmptyLeads;
+    private int filterSecondaryValue;
     /**
      * Creates a new instance of ModelBean
      */
@@ -92,7 +93,18 @@ public class ModelBean {
         blogMap = new HashMap<String, String>();
         leadsToDisplay = new ArrayList<Lead>();
         hideEmptyLeads = false;
+        filterSecondaryValue = 0;
     }
+
+    public int getFilterSecondaryValue() {
+        return filterSecondaryValue;
+    }
+
+    public void setFilterSecondaryValue(int filterSecondaryValue) {
+        this.filterSecondaryValue = filterSecondaryValue;
+    }
+    
+    
 
     public boolean isHideEmptyLeads() {
         return hideEmptyLeads;
@@ -967,6 +979,7 @@ public class ModelBean {
             }
             twitterLeads.get(i).setFilteredTweets(tempList);
             twitterLeads.get(i).setTweetCssClasses(holder);
+            filterSecondary();
             filterLeads();
             /*
              * for(int
@@ -980,6 +993,31 @@ public class ModelBean {
              * }
              */
 
+        }
+    }
+    
+    public void filterSecondary(){
+        if(filterSecondaryValue>0){
+            for(int i=0; i<twitterLeads.size(); i++){
+                ArrayList<Tweet> tempList = new ArrayList<Tweet>();
+                for (int j = 0; j < twitterLeads.get(i).getFilteredTweets().size(); j++) {
+                    if(twitterLeads.get(i).getFilteredTweets().get(j).getRequestingGuidanceVal()>=40.0&&filterSecondaryValue==1){
+                        tempList.add(twitterLeads.get(i).getFilteredTweets().get(j));
+                        System.out.println("qualifying tweet");
+                    }
+                    else if(twitterLeads.get(i).getFilteredTweets().get(j).isIsPositive()&&filterSecondaryValue==2){
+                        tempList.add(twitterLeads.get(i).getFilteredTweets().get(j));
+                        System.out.println("qualifying tweet");
+                    }
+                    else if((!twitterLeads.get(i).getFilteredTweets().get(j).isIsPositive())&&filterSecondaryValue==3){
+                        tempList.add(twitterLeads.get(i).getFilteredTweets().get(j));
+                        System.out.println("qualifying tweet");
+                    }
+                    else
+                        System.err.println("not req guid");
+                }
+                twitterLeads.get(i).setFilteredTweets(tempList);
+            }
         }
     }
    
@@ -1206,11 +1244,14 @@ public class ModelBean {
             if (tone > 0) {
                 t.setCssClass("commentPos,");
                 t.setProgressClass("progress-success");
+                t.setIsPositive(true);
             } else if (tone < 0) {
                 t.setCssClass("commentNeg,");
                 t.setProgressClass("progress-danger");
+                t.setIsPositive(false);
             } else {
                 t.setCssClass("normColumn,");
+                t.setIsPositive(false);
             }
 
             System.out.println("Analysis:" + t.getCssClass());
