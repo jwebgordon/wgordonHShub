@@ -16,6 +16,7 @@ public class Tweet {
     private String cssClass;
     private String progressClass;
     private double sliderVal;
+    private double requestingGuidanceVal;
     
     public Tweet(String s){
         this.msg = s;
@@ -28,6 +29,16 @@ public class Tweet {
         cssClass="";
     }
 
+    public double getRequestingGuidanceVal() {
+        return requestingGuidanceVal;
+    }
+
+    public void setRequestingGuidanceVal(double requestingGuidanceVal) {
+        this.requestingGuidanceVal = requestingGuidanceVal;
+    }
+
+    
+    
     public String getProgressClass() {
         return progressClass;
     }

@@ -418,15 +418,19 @@ border-bottom: 1px solid
 
 .nameColumn{
     width: 100px!important;
-    
+    vertical-align: text-top!important;
 }
 .emailcolumn{
     width: 100px!important;
-    vertical-align: text-top;
+    vertical-align: text-top!important;
 }
 .handleColumn{
     width: 80px!important;
-    vertical-align: text-top;
+    vertical-align: text-top!important;
+}
+.buttonColumn{
+    width: 150px!important;
+    vertical-align: text-top!important;
 }
 .tweetsColumn{
     width: 350px!important;
@@ -717,7 +721,7 @@ margin: 0;
 vertical-align: baseline;
 }
 
-input[type="radio"], input[type="checkbox"] {
+input[type="radio"]{
 margin: 3px 0.5ex;
 padding: initial;
 background-color: initial;
@@ -891,4 +895,9 @@ font-size: 16px;
 h1 small, h2 small, h3 small, h4 small, h5 small, h6 small {
 color: #BFBFBF;
 margin-left: 4px;
+}
+
+input[type="checkbox"] {
+-webkit-appearance: checkbox;
+box-sizing: border-box;
 }

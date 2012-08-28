@@ -26,7 +26,7 @@ and open the template in the editor.
             <h1>Contacts' Tweets</h1>
         </header>
         <h:form class="hs-form">
-            <h:dataTable value="#{ModelBean.twitterLeads}" var="lead" class="hs-table" columnClasses="nameColumn,emailcolumn,handleColumn, tweetsColumn" style="vertical-align:text-top;" >
+            <h:dataTable value="#{ModelBean.leadsToDisplay}" var="lead" class="hs-table" columnClasses="nameColumn,emailcolumn,handleColumn,buttonColumn, tweetsColumn" style="vertical-align:text-top;" >
                 <h:column>
                     <f:facet name="header">
                         <h:outputText value="Name" />
@@ -46,7 +46,7 @@ and open the template in the editor.
                     <h:commandButton value="Tweet Back" class="hs-button orange" action="#{ModelBean.makeTweet(lead.twitter)}" />
                 </h:column>
                 <h:column>
-                    <f:facet name="header">
+                    <f:facet name="header"> 
                         <h:outputText value="Tweets" />
                     </f:facet>
                     <h:dataTable value="#{lead.filteredTweets}" var="tweet" class="hs-table" rowClasses="" >
@@ -57,15 +57,22 @@ and open the template in the editor.
                             <h:outputText value="#{tweet.msg}" />
                         </h:column>
                         <h:column class="normColumn">
-                            <div class="progress #{tweet.progressClass}" style="width: 80px;" >
+                            <label class="hs-label" style="display:block;" >Tone</label>
+                            <div class="progress #{tweet.progressClass}" style="width: 80px; display: block;" >
                                 <div class="bar" style="width: #{tweet.sliderVal}%;" ></div>
+                            </div>
+                            <label class="hs-label" style="display:block;" >Req. Guidance</label>
+                            <div class="progress progress-requestingGuidance" style="width=80px; display:block;" >
+                                <div class="bar" style="width: #{tweet.requestingGuidanceVal}%;" ></div>
                             </div>
                         </h:column>
                     </h:dataTable>
                 </h:column>
             </h:dataTable>
-            <h:inputText value="#{ModelBean.filterKey}" class="hs-input" />
-            <h:commandButton value="Filter" action="#{ModelBean.filterTweets()}" class="hs-button primary" />    
+            <h:inputText value="#{ModelBean.filterKey}" class="hs-input" style="float:left;" />
+            <label class="hs-label" >Hide leads w/o tweets?</label>
+            <h:selectBooleanCheckbox value="#{ModelBean.hideEmptyLeads}" />
+            <h:commandButton value="Filter" action="#{ModelBean.filterTweets()}" class="hs-button primary" style="display:block; position:absolute;" />    
         </h:form>
         
     </body>

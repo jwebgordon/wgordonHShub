@@ -73,6 +73,8 @@ public class ModelBean {
     private String blogPostSuccessMessage;
     private String blogPostFailureMessage;
     private String linkToBlog;
+    private ArrayList<Lead> leadsToDisplay;
+    private boolean hideEmptyLeads;
     /**
      * Creates a new instance of ModelBean
      */
@@ -88,8 +90,29 @@ public class ModelBean {
         polarityVal = 0;
         emailButtonDisabled = true;
         blogMap = new HashMap<String, String>();
+        leadsToDisplay = new ArrayList<Lead>();
+        hideEmptyLeads = false;
     }
 
+    public boolean isHideEmptyLeads() {
+        return hideEmptyLeads;
+    }
+
+    public void setHideEmptyLeads(boolean hideEmptyLeads) {
+        this.hideEmptyLeads = hideEmptyLeads;
+    }
+
+    
+    
+    public ArrayList<Lead> getLeadsToDisplay() {
+        return leadsToDisplay;
+    }
+
+    public void setLeadsToDisplay(ArrayList<Lead> leadsToDisplay) {
+        this.leadsToDisplay = leadsToDisplay;
+    }
+
+    
     public String getLinkToBlog() {
         return linkToBlog;
     }
@@ -944,6 +967,7 @@ public class ModelBean {
             }
             twitterLeads.get(i).setFilteredTweets(tempList);
             twitterLeads.get(i).setTweetCssClasses(holder);
+            filterLeads();
             /*
              * for(int
              * k=0;k<twitterLeads.get(i).getFilteredTweets().size();k++){
@@ -958,7 +982,20 @@ public class ModelBean {
 
         }
     }
-
+   
+    public void filterLeads(){
+        System.out.println("filter leads called");
+        ArrayList<Lead> tempList = new ArrayList<Lead>();
+        for(Lead lead : twitterLeads){
+            System.out.println("Checking lead");
+            if(lead.getTweets().size()>0&&hideEmptyLeads){
+                tempList.add(lead);
+            }
+            else if(!hideEmptyLeads)
+                tempList.add(lead);
+        }
+        leadsToDisplay = tempList;
+    }
     public void getTheBlogs() {
         try {
             if (blogsGotten) {
@@ -1162,8 +1199,10 @@ public class ModelBean {
             }
             JSONObject obj = new JSONObject(sb.toString());
             double tone = obj.getJSONObject("ns1:AmplifyResponse").getJSONObject("AmplifyReturn").getJSONObject("Styles").getJSONObject("Polarity").getJSONObject("Mean").getDouble("Value");
+            double reqGuid = obj.getJSONObject("ns1:AmplifyResponse").getJSONObject("AmplifyReturn").getJSONObject("Styles").getJSONObject("RequestingGuidance").getDouble("Value")*20;
             System.out.println("tone: " + tone);
             t.setSliderVal(Math.abs(tone*100));
+            t.setRequestingGuidanceVal(reqGuid);
             if (tone > 0) {
                 t.setCssClass("commentPos,");
                 t.setProgressClass("progress-success");
