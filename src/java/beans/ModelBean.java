@@ -1525,9 +1525,14 @@ public class ModelBean {
     public void convertBlockToMailLink(){
          
         try{
+            /*
            mailtoEnding = URLEncoder.encode(textBlock, "UTF-8");
            mailtoEnding = mailtoEnding.replaceAll("\\+", "\\%20");
            mailtoEnding = URLEncoder.encode(textBlock, "UTF-8");
+           
+           */
+            mailtoEnding = mailtoEnding.replaceAll(" ", "%20");
+            System.out.println(mailtoEnding);
         }
         catch(Exception e){
             System.out.println(e.toString());
@@ -1574,6 +1579,7 @@ public class ModelBean {
             DataOutputStream osw = new DataOutputStream(conn.getOutputStream());
             osw.writeBytes(message);
             osw.flush();
+            int resp = conn.getResponseCode();
             System.out.println("blog post response" + conn.getResponseCode());
             InputStream response = conn.getInputStream();
             BufferedReader br = new BufferedReader(new InputStreamReader(response));
@@ -1586,11 +1592,11 @@ public class ModelBean {
             JSONObject obj = new JSONObject(sb.toString());
             System.out.println(obj.toString());
             linkToBlog = obj.getString("url");
-            if(conn.getResponseCode()<300){
+            if(resp<300){
                 blogPostFailureMessage = "none";
                 blogPostSuccessMessage = "block";
             }
-            else if(conn.getResponseCode()>=300){
+            else if(resp>=300){
                 blogPostFailureMessage = "block";
                 blogPostSuccessMessage = "none";
                 //test
@@ -1598,6 +1604,8 @@ public class ModelBean {
        }
        catch(Exception e){
            System.out.println(e.toString());
+           blogPostFailureMessage = "block";
+           blogPostSuccessMessage = "none";
        }
    }
    
