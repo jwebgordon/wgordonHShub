@@ -1504,10 +1504,10 @@ public class ModelBean {
             decisivenessVal = obj.getJSONObject("ns1:AmplifyResponse").getJSONObject("AmplifyReturn").getJSONObject("Styles").getJSONObject("Decisiveness").getDouble("Value")*20;
             flamboyanceVal = obj.getJSONObject("ns1:AmplifyResponse").getJSONObject("AmplifyReturn").getJSONObject("Styles").getJSONObject("Flamboyance").getDouble("Value")*20;
             if (tone > 0) {
-                tweetClass = "commentPos";
+                
                 progressClass = "progress-success";
             } else if (tone < 0) {
-                tweetClass = "commentNeg";
+               
                 progressClass = "progress-danger";
             } else {
                 tweetClass = "commentNorm";
@@ -1531,7 +1531,7 @@ public class ModelBean {
            mailtoEnding = URLEncoder.encode(textBlock, "UTF-8");
            
            */
-            mailtoEnding = mailtoEnding.replaceAll(" ", "%20");
+            mailtoEnding = textBlock.replaceAll(" ", "%20");
             System.out.println(mailtoEnding);
         }
         catch(Exception e){

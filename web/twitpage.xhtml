@@ -23,7 +23,9 @@ and open the template in the editor.
                     <a href="analyze-anything.xhtml" class="hs-help-button last tour hs-help-tour hs-tooltip" >Analyze Anything</a>
                 </li>
             </ul>
-            <h1>Contacts' Tweets</h1>
+            <h1>Contacts' Tweets
+                <small>Your contacts' tweets in the last 7 days</small>
+            </h1>
         </header>
         <h:form class="hs-form">
             <h:dataTable value="#{ModelBean.leadsToDisplay}" var="lead" class="hs-table" columnClasses="nameColumn,emailcolumn,handleColumn,buttonColumn, tweetsColumn" style="vertical-align:text-top;" >
@@ -69,22 +71,22 @@ and open the template in the editor.
                     </h:dataTable>
                 </h:column>
             </h:dataTable>
-            
+
             <h5 style="margin-top:5px;">Filter your tweets</h5>
             <label style="margin-right: 5px;width: 70px;margin-top: 2px;" >Filter Key</label>
             <h:inputText value="#{ModelBean.filterKey}" class="hs-input" style="float:left; margin-top: 5px;" />
             <label class="hs-label" style="width: 160px; margin-top: 4px; " >Hide leads w/o tweets?</label>
-            <h:selectBooleanCheckbox value="#{ModelBean.hideEmptyLeads}" style="margin-left:4px; margin-top: 11px;" />
+            <h:selectBooleanCheckbox value="#{ModelBean.hideEmptyLeads}" style="margin-left:4px; margin-right: 4px; margin-top: 11px;" />
             <h:selectOneMenu class="hs-input" value="#{ModelBean.filterSecondaryValue}" style="" >
                 <f:selectItem itemValue="0" itemLabel="No Secondary Filter" />
                 <f:selectItem itemValue="1" itemLabel="Tweets requesting guidance" />
                 <f:selectItem itemValue="2" itemLabel="Positive tweets" />
                 <f:selectItem itemValue="3" itemLabel="Negative tweets" />
-                
+
             </h:selectOneMenu>
             <h:commandButton value="Filter" action="#{ModelBean.filterTweets()}" class="hs-button primary" style="display:block; position:absolute; margin-top: 9px!important" />    
-            
+
         </h:form>
-        
+
     </body>
 </html>
